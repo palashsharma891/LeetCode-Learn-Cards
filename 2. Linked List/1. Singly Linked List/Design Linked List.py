@@ -17,7 +17,13 @@ class MyLinkedList:
         """
         Get the value of the index-th node in the linked list. If the index is invalid, return -1.
         """
+        print('len = ', self.length)
+        curr = self.head
+        while curr.next:
+            print(curr.val)
+            curr = curr.next
         if index < 0 or index >= self.length:
+            print(1)
             return -1
         
         if self.head is None:
@@ -34,10 +40,13 @@ class MyLinkedList:
         """
         Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.
         """
-        node = Node(val)
-        node.next = self.head
-        self.head = node
-        
+        if self.head is None:
+            self.head = Node(val)
+        else:
+            node = Node(val)
+            node.next = self.head
+            self.head = node
+
         self.length += 1
         
 
@@ -47,10 +56,13 @@ class MyLinkedList:
         """
         if self.head is None:
             self.head = Node(val)
+        #elif self.head.next is None:
+         #   node = Node(val)
+          #  self.head.next = node
         else:
             node = Node(val)
             curr = self.head
-            for i in range(self.length-1):
+            while curr.next:
                 curr = curr.next
 
             curr.next = node
@@ -85,16 +97,16 @@ class MyLinkedList:
         """
         Delete the index-th node in the linked list, if the index is valid.
         """
+        if index < 0 or index >= self.length:
+            return
+        
         curr = self.head
         if index == 0:
             self.head = curr.next
         else:
             for i in range(index-1):
                 curr = curr.next
-            if curr.next:
-                curr.next = curr.next.next
-            else:
-                curr.next = None
+            curr.next = curr.next.next
 
         self.length -= 1
 
